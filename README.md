@@ -484,40 +484,33 @@ This project is released under the MIT License. See LICENSE file for details.
 
 ---
 
-# 🧪 16. Future Work
+## 📝 License
 
-- Beam Search
-- BLEU Score
-- Larger Dataset
-- Pretrained Embeddings
-- Mixed Precision
+This project is released under the MIT License. See LICENSE file for details.
 
 ---
 
-# 📚 17. References
+## 🙏 Acknowledgments
 
-- Attention Is All You Need (Vaswani et al.)
-- PyTorch Docs
-- spaCy Docs
+This implementation is based on the foundational work:
 
----
-
-# 🎉 18. Summary
-
-This project demonstrates:
-
-- Transformer from scratch
-- End-to-end translation
-- Clean training pipeline
-- GitHub-ready code
+- **"Attention Is All You Need"** (Vaswani et al., 2017) - The original Transformer paper
+- PyTorch team for the excellent deep learning framework
+- WMT14 for providing the translation dataset
 
 ---
 
-# ✅ Ready to Submit
+## 🚀 Getting Started
 
-You can now:
+Ready to start? Follow these steps:
 
-1. Push to GitHub
-2. Add screenshots
-3. Show translation results
-4. Use this in your portfolio 🚀
+1. Clone the repository
+2. Set up your environment: `conda env create -f environment.yml`
+3. Run the quick start: `bash quickstart.sh`
+4. Explore the documentation starting with `START_HERE.md`
+
+For detailed instructions, see **README.md** or **QUICK_LOOKUP.md**.
+
+---
+
+**Happy Machine Translation! 🎉**
