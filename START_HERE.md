@@ -2,19 +2,35 @@
 
 欢迎使用 **My_Transformer** - 一个完整的、从零实现的机器翻译Transformer！
 
+**GitHub**: [CWhhhaaha/My_Transformer](https://github.com/CWhhhaaha/My_Transformer)
+
 本项目已完全完成并已测试通过。请按照以下步骤开始使用。
 
 ---
 
 ## ⚡ 5分钟快速开始
 
-### 第一步：激活虚拟环境
+### 第一步：克隆项目
 
 ```bash
+git clone https://github.com/CWhhhaaha/My_Transformer.git
+cd My_Transformer
+```
+
+如果你已经有了本项目的本地副本，跳过此步骤。
+
+### 第二步：激活虚拟环境
+
+```bash
+# 方案A: 使用现有环境（如果已创建）
+conda activate transformer_mt
+
+# 方案B: 创建新环境
+conda env create -f environment.yml
 conda activate transformer_mt
 ```
 
-### 第二步：运行自动启动脚本（推荐）
+### 第三步：运行自动启动脚本（推荐）
 
 ```bash
 bash quickstart.sh
