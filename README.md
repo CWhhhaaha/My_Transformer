@@ -208,36 +208,94 @@ max_decode_len: int = 50
 
 ## 🧠 6. Model Architecture
 
-### Transformer Components
+### Overview
+
+This implementation follows the **Encoder-Decoder Transformer** architecture from "Attention Is All You Need" (Vaswani et al., 2017).
+
+The model consists of two main components:
+1. **Encoder**: Processes the source language sequence
+2. **Decoder**: Generates the target language sequence using the encoder's output
+
+### Architecture Diagram
 
 ```
-┌─────────────────────────────────────────┐
-│        Encoder-Decoder Transformer      │
-├─────────────────────────────────────────┤
-│                                         │
-│  ┌──────────┐         ┌──────────┐   │
-│  │ Embedding│         │ Embedding│   │
-│  │   + PE   │         │   + PE   │   │
-│  └────┬─────┘         └────┬─────┘   │
-│       │                    │         │
-│  ┌────▼─────────────┐  ┌───▼──────┐ │
-│  │ Encoder Layers   │  │ Decoder  │ │
-│  │ (Self-Attention) │  │ Layers   │ │
-│  └────┬─────────────┘  │ (Self +  │ │
-│       │                │  Cross)  │ │
-│       │                └───┬──────┘ │
-│       │                    │        │
-│       │    ┌───────────────┘        │
-│       │    │                        │
-│       └────┼───────────────────┐   │
-│            │                   │   │
-│            └──────┬────────────┘   │
-│                   │                │
-│            ┌──────▼──────┐         │
-│            │ Linear + SM  │ (Logits)
-│            └─────────────┘         │
-└─────────────────────────────────────┘
+                    Outputs (Probabilities)
+                            ↑
+                    ┌───────────────┐
+                    │  Linear Layer │
+                    │  (Softmax)    │
+                    └───────────────┘
+                            ↑
+                    ┌───────────────┐
+                    │  Decoder      │
+                    │  Stack (N)    │ ← 3 Layers
+                    └───────────────┘
+                            ↑
+                    ┌───────────────┐
+                    │  Positional   │
+                    │  Encoding     │
+                    └───────────────┘
+                            ↑
+                    ┌───────────────┐
+                    │  Embedding    │
+                    │  (Target)     │
+                    └───────────────┘
+                            ↑
+                       Target Tokens
+                            
+                            ↕ Cross-Attention
+                            
+                    ┌───────────────┐
+                    │  Encoder      │
+                    │  Stack (N)    │ ← 3 Layers
+                    └───────────────┘
+                            ↑
+                    ┌───────────────┐
+                    │  Positional   │
+                    │  Encoding     │
+                    └───────────────┘
+                            ↑
+                    ┌───────────────┐
+                    │  Embedding    │
+                    │  (Source)     │
+                    └───────────────┘
+                            ↑
+                       Source Tokens
 ```
+
+### Encoder Stack
+
+Each encoder layer contains:
+
+1. **Multi-Head Self-Attention** (8 heads)
+   - Allows tokens to attend to all other tokens
+   - Learns different aspects of relationships
+   
+2. **Feed-Forward Network**
+   - Position-wise fully connected network
+   - Dimensions: 256 → 512 → 256
+
+3. **Layer Normalization & Residual Connections**
+   - Post-LN variant: Norm(x + Sublayer(x))
+
+### Decoder Stack
+
+Each decoder layer contains:
+
+1. **Masked Multi-Head Self-Attention**
+   - Attends only to previous positions
+   - Prevents seeing future tokens (autoregressive)
+
+2. **Multi-Head Cross-Attention**
+   - Attends to encoder output
+   - Aligns target generation with source context
+
+3. **Feed-Forward Network**
+   - Same structure as encoder
+
+4. **Layer Normalization & Residual Connections**
+
+### Key Components
 
 ### Multi-Head Attention
 
